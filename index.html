@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Financière - Calcul des Bénéfices</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="light">
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <i class="fas fa-chart-line"></i>
+                Gestion Financière
+            </a>
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="color-palette">
+                    <button class="color-option" style="background-color: #3b82f6;" data-color="#3b82f6" onclick="changeAccentColor('#3b82f6')"></button>
+                    <button class="color-option" style="background-color: #10b981;" data-color="#10b981" onclick="changeAccentColor('#10b981')"></button>
+                    <button class="color-option" style="background-color: #f59e0b;" data-color="#f59e0b" onclick="changeAccentColor('#f59e0b')"></button>
+                    <button class="color-option" style="background-color: #ef4444;" data-color="#ef4444" onclick="changeAccentColor('#ef4444')"></button>
+                    <button class="color-option" style="background-color: #8b5cf6;" data-color="#8b5cf6" onclick="changeAccentColor('#8b5cf6')"></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <form id="financialForm">
+            <!-- Revenue Section -->
+            <section class="form-section">
+                <h2><i class="fas fa-dollar-sign"></i> Revenus</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="monthlyRevenue">Revenu mensuel total (DH)</label>
+                        <input type="number" id="monthlyRevenue" name="monthlyRevenue" step="0.01" min="0" required>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Expenses Section -->
+            <section class="form-section">
+                <h2><i class="fas fa-credit-card"></i> Dépenses</h2>
+                <div class="expenses-grid">
+                    <div class="expense-category">
+                        <div class="expense-header">
+                            <i class="fas fa-tint expense-icon"></i>
+                            <h4>Facture d'Eau</h4>
+                        </div>
+                        <div class="form-group">
+                            <label for="waterBill">Montant (DH)</label>
+                            <input type="number" id="waterBill" name="waterBill" step="0.01" min="0" required>
+                        </div>
+                    </div>
+
+                    <div class="expense-category">
+                        <div class="expense-header">
+                            <i class="fas fa-bolt expense-icon"></i>
+                            <h4>Facture d'Électricité</h4>
+                        </div>
+                        <div class="form-group">
+                            <label for="electricityBill">Montant (DH)</label>
+                            <input type="number" id="electricityBill" name="electricityBill" step="0.01" min="0" required>
+                        </div>
+                    </div>
+
+                    <div class="expense-category">
+                        <div class="expense-header">
+                            <i class="fas fa-wifi expense-icon"></i>
+                            <h4>Facture WiFi</h4>
+                        </div>
+                        <div class="form-group">
+                            <label for="wifiBill">Montant (DH)</label>
+                            <input type="number" id="wifiBill" name="wifiBill" step="0.01" min="0" required>
+                        </div>
+                    </div>
+
+                    <div class="expense-category full-width">
+                        <div class="expense-header">
+                            <i class="fas fa-shopping-cart expense-icon"></i>
+                            <h4>Autres Dépenses</h4>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="otherExpenses">Montant (DH)</label>
+                                <input type="number" id="otherExpenses" name="otherExpenses" step="0.01" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="otherExpensesDescription">Description</label>
+                                <textarea id="otherExpensesDescription" name="otherExpensesDescription" placeholder="Décrivez les autres dépenses..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Employee Management -->
+            <section class="employee-section">
+                <div class="section-header-inline">
+                    <h2><i class="fas fa-users"></i> Gestion des Employés</h2>
+                </div>
+                
+                <div class="employee-form">
+                    <div class="form-group">
+                        <label for="employeeName">Nom de l'employé</label>
+                        <input type="text" id="employeeName" placeholder="Nom complet">
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeSalary">Salaire (DH)</label>
+                        <input type="number" id="employeeSalary" step="0.01" min="0">
+                    </div>
+                    <button type="button" id="addEmployee" class="btn-add">
+                        <i class="fas fa-plus"></i>
+                        Ajouter
+                    </button>
+                </div>
+                
+                <div id="employeesList" class="employees-list">
+                    <p class="no-employees">Aucun employé ajouté</p>
+                </div>
+            </section>
+
+            <!-- Partners Section -->
+            <section class="form-section">
+                <h2><i class="fas fa-handshake"></i> Associés</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="numberOfPartners">Nombre d'associés</label>
+                        <input type="number" id="numberOfPartners" name="numberOfPartners" min="1" value="1" required>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Submit Button -->
+            <div class="form-submit">
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-calculator"></i>
+                    Calculer les Bénéfices
+                </button>
+            </div>
+        </form>
+
+        <!-- Results Section -->
+        <section id="results"></section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
